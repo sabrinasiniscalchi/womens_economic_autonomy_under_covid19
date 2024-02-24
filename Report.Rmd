@@ -142,14 +142,13 @@ df_poverty_by_sex_education_standarized <- df_poverty_by_sex %>%
   mutate(education = case_when(
     education %in% "Primaria incompleta" ~ "0 a 5 años",
     education %in% c("Primaria completa", "Secundaria incompleta") ~ "6 a 11 años",
-    education %in% c("Secundaria completa", 
-                     "Terciaria incompleta (incluye técnica terciaria)") ~ "12 a 15 años",
+    education %in% c("Secundaria completa", "Terciaria incompleta (incluye técnica terciaria)") ~ "12 a 15 años",
     education %in% "Terciaria completa" ~ "15 años y más",
     TRUE ~ as.character(education)
   )) %>%
   mutate(education = factor(education, levels = c("0 a 5 años", 
-                                                  "6 a 11 años", "
-                                                  12 a 15 años",
+                                                  "6 a 11 años",
+                                                  "12 a 15 años",
                                                   "15 años y más"), 
                             ordered = TRUE))
 
@@ -271,16 +270,15 @@ bupu_palette <- brewer.pal(9, "BuPu") #poverty map color scale
 
 La pandemia de COVID-19 ha dejado al descubierto y exacerbado numerosas desigualdades preexistentes en nuestras sociedades, impactando de manera desproporcionada a los grupos más vulnerables. Entre estos, las mujeres de América Latina han enfrentado retos sin precedentes que amenazan su autonomía económica, física y en la toma de decisiones. Este fenómeno no es aislado ni nuevo; refleja patrones de desigualdad de género arraigados que se agudizan en tiempos de crisis.
 La situación laboral de las mujeres en la región, caracterizada por una mayor precariedad e informalidad, las ha expuesto a un riesgo elevado de desempleo durante la pandemia. Además, el confinamiento, el cierre de escuelas y la necesidad de cuidar a familiares contagiados han aumentado la carga de trabajo doméstico no remunerado, una responsabilidad que recae desproporcionadamente sobre ellas, afectando sus tasas de participación en el mercado laboral en mayor medida que lo que lo hizo sobre sus pares hombres. Estas circunstancias han evidenciado cómo las emergencias sanitarias pueden profundizar las brechas de género, limitando significativamente la autonomía económica de las mujeres.
-Sin embargo, el impacto de la pandemia en las mujeres no es homogéneo. Factores como la raza, la etnia, la condición socioeconómica, la situación migratoria y la edad, entre otros, interactúan, creando niveles de desventaja que intensifican los efectos negativos en el empleo y en las responsabilidades del cuidado doméstico. La interseccionalidad de estas desventajas revela la necesidad de enfoques diferenciados y específicos para abordar las consecuencias de la pandemia en las mujeres de la región.
-Este contexto nos invita a reflexionar sobre las estructuras socioeconómicas que perpetúan la desigualdad de género y a buscar soluciones que promuevan una mayor equidad. La autonomía económica de las mujeres no solo es fundamental para su bienestar y desarrollo personal, sino también para la resiliencia y recuperación de nuestras sociedades frente a crisis futuras. La visualización que presentamos a continuación busca recoger algunos de los indicadores que ponen en evidencia el impacto de la pandemia de COVID-19 en la autonomía económica de las mujeres.
+La visualización que presentamos a continuación busca recoger algunos de los indicadores que ponen en evidencia el impacto de la pandemia de COVID-19 en la autonomía económica de las mujeres.
 
   
-##### Participación y empleo
+# Participación en el mercado de trabajo
 
-La pandemia de COVID-19 ha marcado un punto de inflexión en el ámbito laboral global, y América Latina no ha sido la excepción. Este evento sin precedentes ha generado un impacto significativo en las dinámicas de empleo, manifestándose en una notable disminución de las tasas de participación y ocupación laboral, así como en un incremento de la desocupación a niveles no vistos en crisis anteriores. Durante el segundo trimestre de 2020, la región se destacó desafortunadamente por registrar la mayor pérdida de horas de trabajo a nivel mundial, debido tanto a la eliminación de empleos como a la reducción de las jornadas de trabajo. Esta situación ha repercutido de manera desproporcionada en el empleo femenino, interrumpiendo una tendencia de crecimiento sostenido de la participación de las mujeres en la fuerza laboral. 
+La pandemia de COVID-19 ha marcado un punto de inflexión en el ámbito laboral global, y América Latina no ha sido la excepción. Este evento sin precedentes ha generado un impacto significativo en las dinámicas de empleo, manifestándose en una notable disminución de las tasas de participación y ocupación laboral, así como en un incremento de la desocupación a niveles no vistos en crisis anteriores. Durante el segundo trimestre de 2020, la región se destacó desafortunadamente por registrar la mayor pérdida de horas de trabajo a nivel mundial, debido tanto a la eliminación de empleos como a la reducción de las jornadas de trabajo (OIT,2020; CEPAL,2022),. Esta situación ha repercutido de manera desproporcionada en el empleo femenino, interrumpiendo una tendencia de crecimiento sostenido de la participación de las mujeres en la fuerza laboral. 
 
 
-```{r participationLA, echo = FALSE, warning = FALSE}
+```{r participationLA, echo = FALSE, warning = FALSE,fig.height=5}
 #CHART1
 ggplot(df_participation_LA, aes(x = year, y = mean_participation_rate)) +  
   geom_col(fill = brewer.pal(n = 3, name = "Pastel2")[1]) +
@@ -297,11 +295,10 @@ ggplot(df_participation_LA, aes(x = year, y = mean_participation_rate)) +
                            by = 1)) +
   scale_y_continuous(limits = c(0, 70), breaks = seq(0, 70, by = 10)) +
   theme_grey() +
-  theme(plot.title = element_text(hjust = 0.5, size = 12),  
+  theme(plot.title = element_text(hjust = 0.5, size = 10),  
         plot.caption = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Participación de las mujeres en el mercado laboral, \n
-       2012-2022, América Latina (promedio ponderado)",
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Gráfico 1: Tasa de participación por sexo (%), 2013-2022 \n América Latina (promedio ponderado)",
        x = "Año",
        y = "Tasa de participación laboral (%)",
        caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) \n
@@ -310,10 +307,10 @@ ggplot(df_participation_LA, aes(x = year, y = mean_participation_rate)) +
 
 ```
 
-La gráfica ilustra la evolución de las tasas de participación en el mercado laboral de las mujeres entre 2012 y 2022, evidenciando cómo las mujeres han sido afectadas en sus trayectorias laborales por la crisis desencadenada por la pandemia. 
-El panorama de la participación laboral femenina en América Latina durante y después de la pandemia de COVID-19 revela una compleja variedad de realidades nacionales, cada una con sus propias dinámicas y desafíos. La diversidad de estas situaciones queda claramente ilustrada en la gráfica que se presenta a continuación, donde se evidencia que los países con las mayores caídas en la tasa de participación de las mujeres en el mercado laboral son precisamente aquellos donde, antes de la crisis, estas tasas eran más elevadas.
+El gráfico 1 ilustra la evolución de las tasas de participación en el mercado laboral de las mujeres entre 2012 y 2022, evidenciando cómo las mujeres han sido afectadas en sus trayectorias laborales por la pandemia. 
+No obstante ello, el panorama de la participación laboral femenina en América Latina durante y después de la pandemia de COVID-19 revela una compleja variedad de realidades nacionales, cada una con sus propias dinámicas y desafíos. La diversidad de estas situaciones queda claramente ilustrada en el Gráfico 2 que se presenta a continuación, donde se evidencia que los países con las mayores caídas en la tasa de participación de las mujeres en el mercado laboral son precisamente aquellos donde, antes de la crisis, estas tasas eran más elevadas.
   
-```{r participation_by_country, echo=FALSE, fig.height=10, message=FALSE, warning=FALSE}
+```{r participation_by_country, echo=FALSE, fig.height=8, message=FALSE, warning=FALSE}
 #CHART2
 ggplot(df_participation_without_latin_america, aes(x = year, y = mean_participation_rate)) +  
   geom_col(fill = brewer.pal(n = 3, name = "Pastel2")[1]) +
@@ -331,18 +328,20 @@ ggplot(df_participation_without_latin_america, aes(x = year, y = mean_participat
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 25)) +
   facet_wrap(~ country, scales = "free_y", ncol = 2) +
   theme_grey() +
-  theme(plot.title = element_text(hjust = 0.5, size = 12),
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
         plot.caption = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Participación de las mujeres en el mercado laboral por país, 2012-2022",
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Gráfico 2: Tasa de participación por sexo y país (%), 2013-2022",
        x = "Año",
        y = "Tasa de participación laboral (%)",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL), 
-       \n sobre la base de cifras oficiales de los países y proyecciones.") +
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL),\n sobre la base de cifras oficiales de los países y proyecciones.") +
   guides(fill = FALSE)
 ```
 
 Destacan ejemplos como Perú y Bolivia, siendo particularmente notable el caso peruano, donde la tasa de participación femenina experimentó una caída del 10% durante el año 2020. Asimismo, situaciones como la de Chile reflejan un gran retroceso, regresando a niveles de participación laboral femenina que no se observaban desde hace una década. 
+
+# Desempleo
+
 
 ```{r unemployment, warning = FALSE, echo = FALSE,fig.height=10}
 #CHART3
@@ -355,14 +354,18 @@ ggplot(df_unemployment_without_LA %>% filter(year != 2022),
             vjust = -0.25, 
             size = 2.5) +
   scale_color_brewer(palette = "Set2") +
-  scale_x_continuous(breaks = seq(min(df_unemployment_without_LA$year, na.rm = TRUE), max(df_unemployment_without_LA$year, na.rm = TRUE), by = 1)) +
+  scale_x_continuous(breaks = seq(min(df_unemployment_without_LA$year, na.rm = TRUE), max(df_unemployment_without_LA$year, na.rm = TRUE), by = 2)) +
   scale_y_continuous(limits = c(0, 30), breaks = seq(0, 30, by = 10)) +
   facet_grid(country ~ schooling, scales = "free_y") +
   theme_grey() +
-  theme(plot.title = element_text(hjust = 0.5, size = 11),
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
         plot.caption = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1, size = 6)) +
-  labs(title = "Tasa de desempleo abierto por país y años de enseñanza, 2012-2021",
+        axis.text.x = element_text(angle = 90, hjust = 1, size = 6),
+        legend.position = "bottom", 
+        legend.direction = "horizontal",
+        legend.title = element_text(size = 8, hjust = 0.5),
+        legend.text = element_text(size = 6)) +
+  labs(title = "Gráfico 3: Tasa de desempleo por país, sexo y años de enseñanza, 2012-2021",
        x = "Año",
        y = "Tasa de desempleo (%)",
        caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) \n
@@ -370,12 +373,14 @@ ggplot(df_unemployment_without_LA %>% filter(year != 2022),
   guides(fill = FALSE)
 ```
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+El gráfico 3 proporciona un análisis detallado de la tasa de desempleo abierto en varios países de América Latina desde 2012 hasta 2021, desglosando los datos por sexo y años de enseñanza. A lo largo de la década, se observa que las tasas de desempleo femenino generalmente superan a las de los hombres en la mayoría de los niveles educativos y países analizados. En particular, se nota una tendencia al aumento del desempleo femenino en el periodo pandémico del 2020, evidenciando un impacto diferencial por género en el mercado laboral. Países como Colombia y Brasil muestran las tasas más altas de desempleo femenino, mientras que en países como Uruguay, la tasa de desempleo femenino experimenta un incremento notable durante los años de la pandemia, siendo el país donde las mujeres con menor formación sufrieron mayor incremento en la tasa de desempleo.
 
-# Pobreza y exclusión
+# Pobreza
 
-```{r poverty, warning = FALSE, echo = FALSE, fig.height=10,}
+El gráfico 4 presenta la población en situación de pobreza por país, segmentada por el clima educativo del hogar y el sexo entre los años 2012 y 2022. Se observa que la pobreza afecta de manera desproporcionada a las mujeres en la mayoría de los países, especialmente aquellas con menor nivel educativo. Durante los años de la pandemia de COVID-19, particularmente en 2020, se nota un aumento en la proporción de mujeres en situación de pobreza, lo que sugiere que la crisis sanitaria pudo haber exacerbado las desigualdades existentes. Este impacto es más notable en los hogares con niveles educativos de "0 a 5 años" y "6 a 11 años", lo cual indica que la pandemia afectó en mayor medida a los grupos con menor educación. En comparación, los hogares con "15 años y más" de educación muestran una resiliencia relativamente mayor ante la crisis económica derivada del COVID-19.
+
+
+```{r poverty, warning = FALSE, echo = FALSE, fig.height=8,}
 #CHART4
 base_plot <- ggplot(df_poverty_by_sex_education_standarized,
                     aes(x = year, y = mean_poverty, group = sex)) +  
@@ -387,15 +392,17 @@ base_plot <- ggplot(df_poverty_by_sex_education_standarized,
                           by = 1)) +
   facet_grid(country ~ education, scales = "free_y") +
   theme_grey() +
-  theme(plot.title = element_text(hjust = 0.5, size = 11),
-        plot.caption = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1, size = 6)) +
-  labs(title = "Población en situación de pobreza por país \n 
-       según clima educativo del hogar y sexo 2012-2022",
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
+        plot.caption = element_text(hjust = 0.5, size = 7),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 6),
+        legend.position = "bottom", 
+        legend.direction = "horizontal",
+        legend.title = element_text(size = 8, hjust = 0.5),
+        legend.text = element_text(size = 6)) +
+  labs(title = "Gráfico 4: Población en situación de pobreza por país \nsegún clima educativo del hogar y sexo 2012-2022",
        x = "Año",
        y = "% Población en situación de pobreza",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) 
-       \n sobre la base de cifras oficiales de los países y proyecciones.")
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL)\n sobre la base de cifras oficiales de los países y proyecciones.")
 
 highlight_2020 <- df_poverty_by_sex_education_standarized %>%
   filter(year == 2020)
@@ -407,7 +414,6 @@ base_plot +
   guides(fill = guide_legend(title = "Sexo"))
 ```
 
-El gráfico presenta la población en situación de pobreza por país, segmentada por el clima educativo del hogar y el sexo entre los años 2012 y 2022. Se observa que la pobreza afecta de manera desproporcionada a las mujeres en la mayoría de los países, especialmente aquellas con menor nivel educativo. Durante los años de la pandemia de COVID-19, particularmente en 2020, se nota un aumento en la proporción de mujeres en situación de pobreza, lo que sugiere que la crisis sanitaria pudo haber exacerbado las desigualdades existentes. Este impacto es más notable en los hogares con niveles educativos de "0 a 5 años" y "6 a 11 años", lo cual indica que la pandemia afectó en mayor medida a los grupos con menor educación. En comparación, los hogares con "15 años y más" de educación muestran una resiliencia relativamente mayor ante la crisis económica derivada del COVID-19.
 
 
 ```{r maps, warning = FALSE, echo = FALSE}
