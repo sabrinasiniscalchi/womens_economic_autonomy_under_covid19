@@ -32,7 +32,7 @@ library(RColorBrewer)
 library(ggrepel)
 library(sf)
 
-base_path <- "/Users/sabrina/Documents/data_vizualization_project_fcs/" 
+base_path <- "/Users/sabrina/Documents/womens_economic_autonomy_under_covid19" 
 
 #participation
 data_file_path <- file.path(base_path, "cepal_data", "participation_by_sex.csv")

@@ -1,0 +1,14 @@
+readxl
+dplyr
+stringr
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+forcats
+lubridate
+RColorBrewer
+ggrepel
+sf
