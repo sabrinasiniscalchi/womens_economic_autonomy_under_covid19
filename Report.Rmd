@@ -136,9 +136,9 @@ df_poverty_by_sex <- df_poverty_by_sex %>%
 
 
 df_poverty_by_sex_education_standarized <- df_poverty_by_sex %>%
+  filter(!country %in% c("América Latina", "Venezuela")) %>% #Excluding Venezuela due to lack of data since 2014 on this variable.
   group_by(year, sex, country, education) %>%
-  summarize(mean_poverty = mean(poverty_percentage, na.rm = TRUE), 
-            .groups = 'drop') %>%
+  summarize(mean_poverty = mean(poverty_percentage, na.rm = TRUE), .groups = 'drop') %>%
   mutate(education = case_when(
     education %in% "Primaria incompleta" ~ "0 a 5 años",
     education %in% c("Primaria completa", "Secundaria incompleta") ~ "6 a 11 años",
@@ -152,12 +152,11 @@ df_poverty_by_sex_education_standarized <- df_poverty_by_sex %>%
                                                   "15 años y más"), 
                             ordered = TRUE))
 
-##data transformation for poverty by country (Chart4)
+# Data transformation for poverty by country (Chart4)
 df_poverty_by_sex_education_standarized <- 
   df_poverty_by_sex_education_standarized %>%
   mutate(highlight = if_else(year == 2020, "2020", "Other"),
          sex_highlight = interaction(sex, highlight))
-
 
 
 #growth rate per variable
@@ -296,13 +295,12 @@ ggplot(df_participation_LA, aes(x = year, y = mean_participation_rate)) +
   scale_y_continuous(limits = c(0, 70), breaks = seq(0, 70, by = 10)) +
   theme_grey() +
   theme(plot.title = element_text(hjust = 0.5, size = 10),  
-        plot.caption = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5, size = 7),
         axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title = "Gráfico 1: Tasa de participación por sexo (%), 2013-2022 \n América Latina (promedio ponderado)",
+  labs(title = "Gráfico 1: Tasa de participación por sexo (%), 2013-2022  América Latina (promedio ponderado)",
        x = "Año",
        y = "Tasa de participación laboral (%)",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) \n
-       sobre la base de cifras oficiales de los países y proyecciones.") +
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.") +
   guides(fill = FALSE)
 
 ```
@@ -329,19 +327,18 @@ ggplot(df_participation_without_latin_america, aes(x = year, y = mean_participat
   facet_wrap(~ country, scales = "free_y", ncol = 2) +
   theme_grey() +
   theme(plot.title = element_text(hjust = 0.5, size = 10),
-        plot.caption = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5, size = 7),
         axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(title = "Gráfico 2: Tasa de participación por sexo y país (%), 2013-2022",
        x = "Año",
        y = "Tasa de participación laboral (%)",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL),\n sobre la base de cifras oficiales de los países y proyecciones.") +
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL), sobre la base de cifras oficiales de los países y proyecciones.") +
   guides(fill = FALSE)
 ```
 
 Destacan ejemplos como Perú y Bolivia, siendo particularmente notable el caso peruano, donde la tasa de participación femenina experimentó una caída del 10% durante el año 2020. Asimismo, situaciones como la de Chile reflejan un gran retroceso, regresando a niveles de participación laboral femenina que no se observaban desde hace una década. 
 
 # Desempleo
-
 
 ```{r unemployment, warning = FALSE, echo = FALSE,fig.height=10}
 #CHART3
@@ -359,7 +356,7 @@ ggplot(df_unemployment_without_LA %>% filter(year != 2022),
   facet_grid(country ~ schooling, scales = "free_y") +
   theme_grey() +
   theme(plot.title = element_text(hjust = 0.5, size = 10),
-        plot.caption = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5, size = 7),
         axis.text.x = element_text(angle = 90, hjust = 1, size = 6),
         legend.position = "bottom", 
         legend.direction = "horizontal",
@@ -368,12 +365,11 @@ ggplot(df_unemployment_without_LA %>% filter(year != 2022),
   labs(title = "Gráfico 3: Tasa de desempleo por país, sexo y años de enseñanza, 2012-2021",
        x = "Año",
        y = "Tasa de desempleo (%)",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) \n
-       sobre la base de cifras oficiales de los países y proyecciones.") +
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.") +
   guides(fill = FALSE)
 ```
 
-El gráfico 3 proporciona un análisis detallado de la tasa de desempleo abierto en varios países de América Latina desde 2012 hasta 2021, desglosando los datos por sexo y años de enseñanza. A lo largo de la década, se observa que las tasas de desempleo femenino generalmente superan a las de los hombres en la mayoría de los niveles educativos y países analizados. En particular, se nota una tendencia al aumento del desempleo femenino en el periodo pandémico del 2020, evidenciando un impacto diferencial por género en el mercado laboral. Países como Colombia y Brasil muestran las tasas más altas de desempleo femenino, mientras que en países como Uruguay, la tasa de desempleo femenino experimenta un incremento notable durante los años de la pandemia, siendo el país donde las mujeres con menor formación sufrieron mayor incremento en la tasa de desempleo.
+El gráfico 3 proporciona un análisis detallado de la tasa de desempleo abierto en varios países de América Latina desde 2012 hasta 2021, desglosando los datos por sexo y años de enseñanza. A lo largo de la década, se observa que las tasas de desempleo femenino generalmente superan a las de los hombres en la mayoría de los niveles educativos y países analizados. En particular, se nota una tendencia al aumento del desempleo femenino en 2020, evidenciando un impacto diferencial por género en el mercado laboral. Países como Colombia y Brasil muestran las tasas más altas de desempleo femenino, mientras que en países como Uruguay, la tasa de desempleo femenino experimenta un incremento notable durante los años de la pandemia, siendo el país donde las mujeres con menor formación sufrieron mayor incremento en la tasa de desempleo.
 
 # Pobreza
 
@@ -394,15 +390,15 @@ base_plot <- ggplot(df_poverty_by_sex_education_standarized,
   theme_grey() +
   theme(plot.title = element_text(hjust = 0.5, size = 10),
         plot.caption = element_text(hjust = 0.5, size = 7),
-        axis.text.x = element_text(angle = 45, hjust = 1, size = 6),
+        axis.text.x = element_text(angle = 90, hjust = 1, size = 6),
         legend.position = "bottom", 
         legend.direction = "horizontal",
         legend.title = element_text(size = 8, hjust = 0.5),
         legend.text = element_text(size = 6)) +
-  labs(title = "Gráfico 4: Población en situación de pobreza por país \nsegún clima educativo del hogar y sexo 2012-2022",
+  labs(title = "Gráfico 4: Población en situación de pobreza por país según clima educativo del hogar y sexo 2012-2022",
        x = "Año",
        y = "% Población en situación de pobreza",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL)\n sobre la base de cifras oficiales de los países y proyecciones.")
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.")
 
 highlight_2020 <- df_poverty_by_sex_education_standarized %>%
   filter(year == 2020)
@@ -414,54 +410,66 @@ base_plot +
   guides(fill = guide_legend(title = "Sexo"))
 ```
 
+# Variación de los indicadores por país
 
+Para concluir nuestro reporte y proporcionar una visión sintetizada de las diferencias entre países, hemos calculado las tasas de variación de los tres indicadores clave mostrados anteriormente: tasas de participación, ocupación y desempleo. Estos cálculos se han enfocado exclusivamente en el impacto sobre las mujeres entre los años 2019 y 2020, un periodo crítico que encapsula los efectos iniciales de la pandemia de COVID-19. Los resultados de estos cálculos se presentan en forma de mapas, permitiendo una comparación visual e inmediata de cómo la pandemia ha afectado la situación laboral de las mujeres en diferentes países de América Latina.
 
-```{r maps, warning = FALSE, echo = FALSE}
+```{r map1, warning = FALSE, echo = FALSE}
 #MAP1
 ggplot() +
   geom_sf(data = latin_america_sf, aes(fill = diff_participation_rate)) +
   scale_fill_gradientn(colors = purple_palette_reversed, na.value = na_color) +
   labs(
-    title = "Variación de la participación de mujeres entre 2019 y 2020 (%) ",
-    fill = "Tasa de variación de la participación (%)"
-  ) +
+    title = "Mapa 1: Variación de la participación de mujeres entre 2019 y 2020 (%) ",
+    fill = "Tasa de variación de la participación (%)",
+    caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.") +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5, size = 11),
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
         legend.position = "bottom", 
         legend.direction = "horizontal",
         legend.title = element_text(size = 8, hjust = 0.5),
-        legend.text = element_text(size = 6)) 
+        legend.text = element_text(size = 6),
+        plot.caption = element_text(hjust = 0.5, size = 7))
+```
 
+El mapa 1 muestra una disminución en la participación de las mujeres en el mercado laboral entre los años 2019 y 2020 en varios países de América Latina, destacándose especialmente en la región andina, con tas de caída de la participacíon de las mujeres en el mercado laboral de más de 10% con respecto a sus niveles de 2019. 
+
+```{r map2, warning = FALSE, echo = FALSE}
 #MAP2
 ggplot() +
   geom_sf(data = latin_america_sf, aes(fill = diff_mean_unemployment_rate)) +
   scale_fill_gradientn(colors = gnbu_palette, na.value = na_color) +
   labs(
-    title = "Variación del desempleo de mujeres entre 2019 y 2020 (%)",
-    fill = "Tasa de variación desempleo (%)"
-  ) +
+    title = "Mapa 2: Variación del desempleo de mujeres entre 2019 y 2020 (%)",
+    fill = "Tasa de variación desempleo (%)",
+    caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.") +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5, size = 11),
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
         legend.position = "bottom", 
         legend.direction = "horizontal",
         legend.title = element_text(size = 8, hjust = 0.5),
-        legend.text = element_text(size = 6)) 
+        legend.text = element_text(size = 6),
+        plot.caption = element_text(hjust = 0.5, size = 7)) 
+```
 
+El mapa 2 ilustra un incremento notable en la tasa de desempleo de las mujeres en algunos países de América Latina durante el periodo 2019-2020, destacando nuevamente el impacto sobre las poblaciones de Perú, Bolivia y Ecuador.
+
+```{r map3, warning = FALSE, echo = FALSE}
 #MAP3
 ggplot() +
   geom_sf(data = latin_america_sf, aes(fill = diff_mean_poverty_rate)) +
   scale_fill_gradientn(colors = bupu_palette, na.value = na_color) +
   labs(
-    title = "Variación de la pobreza de mujeres entre 2019 y 2020 (%)",
-    fill = "Difference"
-  ) +
+    title = "Mapa 3: Variación de la pobreza de mujeres entre 2019 y 2020 (%)",
+    fill = "Difference",
+    caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5, size = 11),
         legend.position = "bottom", 
         legend.direction = "horizontal",
         legend.title = element_text(size = 8, hjust = 0.5),
-        legend.text = element_text(size = 6)) 
+        legend.text = element_text(size = 6),
+        plot.caption = element_text(hjust = 0.5, size = 7)) 
 ```
 
-
-
+El análisis de los tres indicadores revela que Perú exhibe el mayor incremento en términos de desempleo, caída de la participación laboral y aumento de la pobreza de las mujeres entre 2019 y 2020. Por otro lado, Uruguay muestra un comportamiento relativamente más favorable en los indicadores de desempleo y participación laboral; sin embargo, ocupa el segundo lugar en cuanto al aumento de la pobreza, lo que subraya que incluso los países que parecen haber manejado mejor ciertos aspectos de la crisis no están exentos de sus efectos adversos en sus consecuencias sociales y económicos.
