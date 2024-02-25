@@ -340,7 +340,7 @@ Destacan ejemplos como Perú y Bolivia, siendo particularmente notable el caso p
 
 # Desempleo
 
-```{r unemployment, warning = FALSE, echo = FALSE,fig.height=10}
+```{r unemployment, warning = FALSE, echo = FALSE,fig.height=8}
 #CHART3
 ggplot(df_unemployment_without_LA %>% filter(year != 2022),
        aes(x = year, y = mean_unemployment_rate, group = sex, color = sex)) +  
