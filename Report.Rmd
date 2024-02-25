@@ -4,7 +4,7 @@ author: "Sabrina Siniscalchi"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
-    toc: true
+    toc: false
     number_sections: true
     toc_depth: 2
     latex_engine: xelatex
@@ -267,15 +267,16 @@ bupu_palette <- brewer.pal(9, "BuPu") #poverty map color scale
 
 # Introducción 
 
-La pandemia de COVID-19 ha dejado al descubierto y exacerbado numerosas desigualdades preexistentes en nuestras sociedades, impactando de manera desproporcionada a los grupos más vulnerables. Entre estos, las mujeres de América Latina han enfrentado retos sin precedentes que amenazan su autonomía económica, física y en la toma de decisiones. Este fenómeno no es aislado ni nuevo; refleja patrones de desigualdad de género arraigados que se agudizan en tiempos de crisis.
-La situación laboral de las mujeres en la región, caracterizada por una mayor precariedad e informalidad, las ha expuesto a un riesgo elevado de desempleo durante la pandemia. Además, el confinamiento, el cierre de escuelas y la necesidad de cuidar a familiares contagiados han aumentado la carga de trabajo doméstico no remunerado, una responsabilidad que recae desproporcionadamente sobre ellas, afectando sus tasas de participación en el mercado laboral en mayor medida que lo que lo hizo sobre sus pares hombres. Estas circunstancias han evidenciado cómo las emergencias sanitarias pueden profundizar las brechas de género, limitando significativamente la autonomía económica de las mujeres.
-La visualización que presentamos a continuación busca recoger algunos de los indicadores que ponen en evidencia el impacto de la pandemia de COVID-19 en la autonomía económica de las mujeres.
+La pandemia de COVID-19 ha marcado un punto de inflexión en el ámbito laboral global, y América Latina no ha sido la excepción. Este evento sin precedentes ha generado un impacto significativo en las dinámicas de empleo, manifestándose en una notable disminución de las tasas de participación y ocupación laboral, así como en un incremento de la desocupación. Durante el segundo trimestre de 2020, la región se destacó por registrar la mayor pérdida de horas de trabajo a nivel mundial, debido tanto a la eliminación de empleos como a la reducción de las jornadas de trabajo (OIT,2020 en CEPAL,2022:71). La situación laboral de las mujeres en la región, caracterizada por una mayor precariedad e informalidad, las ha expuesto a un riesgo mayor de desempleo, mientras que el confinamiento y la carga adicional de cuidados han disminuido su participación en el mercado laboral, y aumentado sus niveles relativos de pobreza. 
+La visualización que presentamos a continuación busca recoger sucintamente estos tres indicadores: particpación laboral, desempleo y pobreza, y mostrar sus impactos relativos en la autonomía económica de las mujeres durante el período pandémico.
+
+El contenido de este reporte puede descargarse de [github](https://github.com/sabrinasiniscalchi/womens_economic_autonomy_under_covid19).
+
 
   
 # Participación en el mercado de trabajo
 
-La pandemia de COVID-19 ha marcado un punto de inflexión en el ámbito laboral global, y América Latina no ha sido la excepción. Este evento sin precedentes ha generado un impacto significativo en las dinámicas de empleo, manifestándose en una notable disminución de las tasas de participación y ocupación laboral, así como en un incremento de la desocupación a niveles no vistos en crisis anteriores. Durante el segundo trimestre de 2020, la región se destacó desafortunadamente por registrar la mayor pérdida de horas de trabajo a nivel mundial, debido tanto a la eliminación de empleos como a la reducción de las jornadas de trabajo (OIT,2020; CEPAL,2022),. Esta situación ha repercutido de manera desproporcionada en el empleo femenino, interrumpiendo una tendencia de crecimiento sostenido de la participación de las mujeres en la fuerza laboral. 
-
+El gráfico 1 ilustra la evolución de las tasas de participación en el mercado laboral de las mujeres entre 2012 y 2022, evidenciando cómo las mujeres han sido afectadas en sus trayectorias laborales por la pandemia. Esta situación ha interrumpiendo una tendencia de crecimiento sostenido de la participación de las mujeres en la fuerza laboral.
 
 ```{r participationLA, echo = FALSE, warning = FALSE,fig.height=5}
 #CHART1
@@ -305,8 +306,7 @@ ggplot(df_participation_LA, aes(x = year, y = mean_participation_rate)) +
 
 ```
 
-El gráfico 1 ilustra la evolución de las tasas de participación en el mercado laboral de las mujeres entre 2012 y 2022, evidenciando cómo las mujeres han sido afectadas en sus trayectorias laborales por la pandemia. 
-No obstante ello, el panorama de la participación laboral femenina en América Latina durante y después de la pandemia de COVID-19 revela una compleja variedad de realidades nacionales, cada una con sus propias dinámicas y desafíos. La diversidad de estas situaciones queda claramente ilustrada en el Gráfico 2 que se presenta a continuación, donde se evidencia que los países con las mayores caídas en la tasa de participación de las mujeres en el mercado laboral son precisamente aquellos donde, antes de la crisis, estas tasas eran más elevadas.
+El panorama de la participación laboral femenina en América Latina revela históricamente una compleja variedad de realidades nacionales. La diversidad de estas situaciones queda claramente ilustrada en el Gráfico 2, donde se evidencia que los países con las mayores caídas en la tasa de participación de las mujeres en el mercado laboral son precisamente aquellos donde, antes de la crisis, estas tasas eran más elevadas.
   
 ```{r participation_by_country, echo=FALSE, fig.height=8, message=FALSE, warning=FALSE}
 #CHART2
@@ -336,9 +336,8 @@ ggplot(df_participation_without_latin_america, aes(x = year, y = mean_participat
   guides(fill = FALSE)
 ```
 
-Destacan ejemplos como Perú y Bolivia, siendo particularmente notable el caso peruano, donde la tasa de participación femenina experimentó una caída del 10% durante el año 2020. Asimismo, situaciones como la de Chile reflejan un gran retroceso, regresando a niveles de participación laboral femenina que no se observaban desde hace una década. 
-
 # Desempleo
+El gráfico 3 proporciona un análisis detallado de la tasa de desempleo abierto en varios países de América Latina desde 2012 hasta 2021, desglosando los datos por sexo y años de enseñanza.
 
 ```{r unemployment, warning = FALSE, echo = FALSE,fig.height=8}
 #CHART3
@@ -369,11 +368,11 @@ ggplot(df_unemployment_without_LA %>% filter(year != 2022),
   guides(fill = FALSE)
 ```
 
-El gráfico 3 proporciona un análisis detallado de la tasa de desempleo abierto en varios países de América Latina desde 2012 hasta 2021, desglosando los datos por sexo y años de enseñanza. A lo largo de la década, se observa que las tasas de desempleo femenino generalmente superan a las de los hombres en la mayoría de los niveles educativos y países analizados. En particular, se nota una tendencia al aumento del desempleo femenino en 2020, evidenciando un impacto diferencial por género en el mercado laboral. Países como Colombia y Brasil muestran las tasas más altas de desempleo femenino, mientras que en países como Uruguay, la tasa de desempleo femenino experimenta un incremento notable durante los años de la pandemia, siendo el país donde las mujeres con menor formación sufrieron mayor incremento en la tasa de desempleo.
+A lo largo de la década, se observa que las tasas de desempleo femenino generalmente superan a las de los hombres en la mayoría de los niveles educativos y países analizados. En general, se visualiza una tendencia al aumento del desempleo femenino en 2020. Países como Colombia y Brasil, muestran las tasas más altas de desempleo femenino sostenidas, mientras que en países como Uruguay, la tasa de desempleo femenino experimenta un incremento notable durante los años de la pandemia, siendo el país donde las mujeres con menor formación sufrieron mayor incremento en la tasa de desempleo en comparación con los demás países de la región con nivel educativo similares.
 
 # Pobreza
 
-El gráfico 4 presenta la población en situación de pobreza por país, segmentada por el clima educativo del hogar y el sexo entre los años 2012 y 2022. Se observa que la pobreza afecta de manera desproporcionada a las mujeres en la mayoría de los países, especialmente aquellas con menor nivel educativo. Durante los años de la pandemia de COVID-19, particularmente en 2020, se nota un aumento en la proporción de mujeres en situación de pobreza, lo que sugiere que la crisis sanitaria pudo haber exacerbado las desigualdades existentes. Este impacto es más notable en los hogares con niveles educativos de "0 a 5 años" y "6 a 11 años", lo cual indica que la pandemia afectó en mayor medida a los grupos con menor educación. En comparación, los hogares con "15 años y más" de educación muestran una resiliencia relativamente mayor ante la crisis económica derivada del COVID-19.
+El gráfico 4 presenta la población en situación de pobreza por país, segmentada por sexo y el clima educativo del hogar (máximo nivel de estudios alcanzado por el jefe de hogar o su coyuge) entre los años 2012 y 2022. Se observa que la pobreza afecta de manera mayormente a las mujeres, especialmente aquellas que habitan hogares con menor nivel educativo. Durante los años de la pandemia de COVID-19, particularmente en 2020, se nota un aumento en la proporción de mujeres en situación de pobreza; este impacto es más notable en los hogares con niveles educativos de "6 a 11 años".
 
 
 ```{r poverty, warning = FALSE, echo = FALSE, fig.height=8,}
@@ -395,10 +394,10 @@ base_plot <- ggplot(df_poverty_by_sex_education_standarized,
         legend.direction = "horizontal",
         legend.title = element_text(size = 8, hjust = 0.5),
         legend.text = element_text(size = 6)) +
-  labs(title = "Gráfico 4: Población en situación de pobreza por país según clima educativo del hogar y sexo 2012-2022",
+  labs(title = "Gráfico 4: Población en situación de pobreza por país\n según clima educativo del hogar y sexo 2012-2022",
        x = "Año",
        y = "% Población en situación de pobreza",
-       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.")
+       caption = "Fuente: Comisión Económica para América Latina y el Caribe (CEPAL) sobre la base de cifras oficiales de los países y proyecciones.\n Clima Educativo: se calcula a partir del promedio de los años de estudio estimados para el jefe del hogar y su cónyuge\n (de existir), en función de su logro máximo")
 
 highlight_2020 <- df_poverty_by_sex_education_standarized %>%
   filter(year == 2020)
@@ -412,7 +411,7 @@ base_plot +
 
 # Variación de los indicadores por país
 
-Para concluir nuestro reporte y proporcionar una visión sintetizada de las diferencias entre países, hemos calculado las tasas de variación de los tres indicadores clave mostrados anteriormente: tasas de participación, ocupación y desempleo. Estos cálculos se han enfocado exclusivamente en el impacto sobre las mujeres entre los años 2019 y 2020, un periodo crítico que encapsula los efectos iniciales de la pandemia de COVID-19. Los resultados de estos cálculos se presentan en forma de mapas, permitiendo una comparación visual e inmediata de cómo la pandemia ha afectado la situación laboral de las mujeres en diferentes países de América Latina.
+Para concluir nuestro reporte y proporcionar una visión sintetizada de las diferencias entre países, hemos calculado las tasas de variación de los tres indicadores clave mostrados anteriormente: tasas de participación, ocupación y desempleo. Estos cálculos se han enfocado exclusivamente en el impacto sobre las mujeres entre los años 2019 y 2020, y los resultados se presentan en forma de mapas, permitiendo una comparación visual inmediata de cómo la pandemia afectó la situación laboral de las mujeres en diferentes países de América Latina.
 
 ```{r map1, warning = FALSE, echo = FALSE}
 #MAP1
@@ -432,7 +431,7 @@ ggplot() +
         plot.caption = element_text(hjust = 0.5, size = 7))
 ```
 
-El mapa 1 muestra una disminución en la participación de las mujeres en el mercado laboral entre los años 2019 y 2020 en varios países de América Latina, destacándose especialmente en la región andina, con tas de caída de la participacíon de las mujeres en el mercado laboral de más de 10% con respecto a sus niveles de 2019. 
+El mapa 1 muestra una disminución en la participación de las mujeres en el mercado laboral, destacándose especialmente en la región andina, con tasas de caída de la participacíon de las mujeres en el mercado laboral de más de 10% con respecto a sus niveles de 2019. 
 
 ```{r map2, warning = FALSE, echo = FALSE}
 #MAP2
@@ -452,7 +451,7 @@ ggplot() +
         plot.caption = element_text(hjust = 0.5, size = 7)) 
 ```
 
-El mapa 2 ilustra un incremento notable en la tasa de desempleo de las mujeres en algunos países de América Latina durante el periodo 2019-2020, destacando nuevamente el impacto sobre las poblaciones de Perú, Bolivia y Ecuador.
+El mapa 2 ilustra un incremento notable en la tasa de desempleo, destacando nuevamente el impacto que la pandemia tuvo sobre las poblaciones de Perú, Bolivia y Ecuador.
 
 ```{r map3, warning = FALSE, echo = FALSE}
 #MAP3
@@ -473,3 +472,13 @@ ggplot() +
 ```
 
 El análisis de los tres indicadores revela que Perú exhibe el mayor incremento en términos de desempleo, caída de la participación laboral y aumento de la pobreza de las mujeres entre 2019 y 2020. Por otro lado, Uruguay muestra un comportamiento relativamente más favorable en los indicadores de desempleo y participación laboral; sin embargo, ocupa el segundo lugar en cuanto al aumento de la pobreza, lo que subraya que incluso los países que parecen haber manejado mejor ciertos aspectos de la crisis no están exentos de sus efectos adversos en sus consecuencias sociales y económicos.
+
+# Referencias bibliográficas
+
+CEPAL (Comisión Económica para América Latina y el Caribe) (2022) *"Los impactos sociodemográficos de la pandemia de COVID-19 en América Latina y el Caribe"* (LC/CRPD.4/3), Santiago, 2022./n
+
+CEPAL (Comisión Económica para América Latina y el Caribe) (2021), *“La autonomía económica de las mujeres en la recuperación sostenible y con igualdad”*, Informe Especial COVID-19, Nº 9, Santiago.
+
+# Datos
+
+CEPAL (Comisión Económica para América Latina y el Caribe): https://statistics.cepal.org/portal/databank/index.html
