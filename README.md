@@ -1,1 +1,2 @@
-# womens_economic_autonomy_under_covid19
+# Women's economic autonomy under covid19
+The attached report is an essay that showcases the processing, analysis, and visualization of social and political data using the R programming language. Crafted for merits and opposition contests Nbr. 043/23 and 044/23 at Facultad de Ciencias Sociales (FCS-UdelaR); this document demonstrates a keen understanding of data-driven research within the social sciences. It provides precise visual representations and insightful analysis of data trends, mainly focusing on the impacts and changes experienced during the COVID-19 pandemic. 
